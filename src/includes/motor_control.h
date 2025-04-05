@@ -1,9 +1,8 @@
-#ifndef MOTOR_CONTROL_H
-#define MOTOR_CONTROL_H
+#pragma once
 
-#include "QTR_setup.h"
+#include "setup.h"
 
-void MotorControl(float delta, int base);
-void driver_control(int value);
+enum class Direction { LEFT, RIGHT, STOP };
 
-#endif
+void motor_control(int velocity, enum Direction direction);
+void motor_control(enum Direction direction);

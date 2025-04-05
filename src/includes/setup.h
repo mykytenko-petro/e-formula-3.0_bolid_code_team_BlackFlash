@@ -1,23 +1,36 @@
-#ifndef SETUP_H
-#define SETUP_H
+#pragma once
 
 #include <Arduino.h>
+#include <QTRSensors.h>
 
 // Pin definitions
+
+//button pin
 #define button 12
+
+// LED pin
 #define led_on 13
+
 #define AQ1 5
 #define AQ2 4
 #define BQ1 7
 #define BQ2 8
 #define STBY 6
-#define LM 9
-#define RM 3
 
-extern int IsStarted;
-extern float Kp, Ki, Kd;
-extern int P, I, D, lastError;
+// Motor pins
+#define LM 3
+#define RM 9
+
+enum class State {
+    WAIT,
+    CALIBRATION,
+    START
+};
+
+extern State state;
+
 extern int basespeed;
-extern unsigned long p1Time, p2Time;
 
-#endif
+extern QTRSensors qtr;
+extern const uint8_t SensorCount;
+extern uint16_t sensorValues[];

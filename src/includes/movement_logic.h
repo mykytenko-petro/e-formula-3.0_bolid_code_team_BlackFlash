@@ -1,10 +1,9 @@
-#ifndef MOVEMENT_LOGIC_H
-#define MOVEMENT_LOGIC_H
+#pragma once
 
-#include "QTR_setup.h"
-
-float PID_calculation(uint16_t pos);
+#include "motor_control.h"
+#include "setup.h"
+#include "project/movement_logic/includes/emergency_break.h"
+#include "project/movement_logic/includes/calibration.h"
+#include "project/tools/includes/LED_debug.h"
 
 void movement_logic();
-
-#endif

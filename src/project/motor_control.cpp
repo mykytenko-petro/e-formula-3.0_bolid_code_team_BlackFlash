@@ -1,31 +1,23 @@
 #include "../includes/motor_control.h"
-#include "../includes/setup.h"
 
-void MotorControl(float delta, int base) {
-    int motorspeeda = base + int(delta);
-    int motorspeedb = base - int(delta);
-
-    if(delta < 150 && delta > -150) {
-        motorspeeda += 30;
-        motorspeedb += 30;
+// function which simplify motors control
+void motor_control(int velocity, enum Direction direction) {
+    if (velocity > 255) {
+        velocity = 255;
     }
 
-    if (motorspeeda > 255) {
-        motorspeedb = base - int(delta * 2);
-        motorspeeda = 255;
-    }
-    if (motorspeedb > 255) {
-        motorspeeda = base + int(delta * 2);
-        motorspeedb = 255;
-    }
-    if (motorspeeda < 0) motorspeeda = 0;
-    if (motorspeedb < 0) motorspeedb = 0;
+    switch (direction) {
+        case Direction::LEFT:
+            analogWrite(LM, velocity);
+            break;
 
-    analogWrite(LM, motorspeeda);
-    analogWrite(RM, motorspeedb);
+        case Direction::RIGHT:
+            analogWrite(RM, velocity);
+            break;
+    }
 }
 
-void driver_control(int value) {
-    digitalWrite(AQ2, value);
-    digitalWrite(BQ2, value);
+void motor_control(enum Direction direction) {
+    analogWrite(LM, 0);
+    analogWrite(RM, 0);
 }
