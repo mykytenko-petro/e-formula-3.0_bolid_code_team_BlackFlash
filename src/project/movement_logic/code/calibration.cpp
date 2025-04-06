@@ -7,9 +7,10 @@ Direction side = Direction::LEFT;
 void calibration() {
     qtr.calibrate();
 
-    if (rotation <= 0)
+    if (side == Direction::LEFT)
     {
         motor_control(50, Direction::RIGHT);
+        motor_control(-50, Direction::LEFT);
     }
     
 }

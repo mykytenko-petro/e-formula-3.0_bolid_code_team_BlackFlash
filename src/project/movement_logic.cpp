@@ -3,7 +3,7 @@
 // button which change state
 State change_state(State current_state) {
     if (digitalRead(button) == LOW) {  
-        delay(150);
+        delay(200);
         if (digitalRead(button) == HIGH) {
             motor_control(Direction::STOP);
             switch (current_state) {
@@ -21,6 +21,7 @@ State change_state(State current_state) {
 
 void movement_logic() {
     uint16_t position = qtr.readLineBlack(sensorValues);
+    
 
     // emergency_break(position);
 
@@ -35,7 +36,7 @@ void movement_logic() {
             calibration();
             break;
         case State::START:
-            LED_signal(10);
+            Serial.println(static_cast<int>(position));
             break;
     }
 }

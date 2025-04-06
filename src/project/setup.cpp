@@ -29,10 +29,13 @@ void setup() {
     pinMode(STBY, OUTPUT);
 
     //setup motors
-    digitalWrite(AQ1, HIGH);
-    digitalWrite(BQ1, HIGH);
+    
     digitalWrite(STBY, HIGH);
+
+    digitalWrite(AQ1, HIGH);
     digitalWrite(AQ2, LOW);
+    
+    digitalWrite(BQ1, HIGH);
     digitalWrite(BQ2, LOW);
 
     //setup sensors

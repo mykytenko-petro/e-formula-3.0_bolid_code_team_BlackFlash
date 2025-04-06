@@ -5,7 +5,7 @@
 
 // Pin definitions
 
-//button pin
+// button pin
 #define button 12
 
 // LED pin
