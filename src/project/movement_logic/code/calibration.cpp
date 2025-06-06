@@ -1,16 +1,42 @@
 #include "../includes/calibration.h"
 
 // TODO: make automatic calibration
+int step = -1;
 int rotation = 0;
+int rotation_speed = 150;
+int calibration_count = 0;
 Direction side = Direction::LEFT;
 
 void calibration() {
-    qtr.calibrate();
+    if (calibration_count < 10){
+        qtr.calibrate();
 
-    if (side == Direction::LEFT)
-    {
-        motor_control(50, Direction::RIGHT);
-        motor_control(-50, Direction::LEFT);
+        rotation += step;
+
+        if (rotation < -3) {
+            motor_control(Direction::STOP);
+            side = Direction::RIGHT;
+            step = 1;
+        } else if (rotation > 3) {
+            motor_control(Direction::STOP);
+            side = Direction::LEFT;
+            step = -1;
+        }
+
+        if (side == Direction::RIGHT && rotation == 0) {
+           calibration_count += 1;
+        }
+
+        Serial.println(rotation);
+
+        if (side == Direction::LEFT) {
+            motor_control(rotation_speed, Direction::RIGHT);
+            motor_control(-rotation_speed, Direction::LEFT);
+        } else {
+            motor_control(-rotation_speed, Direction::RIGHT);
+            motor_control(rotation_speed, Direction::LEFT);
+        }
+    } else {
+        motor_control(Direction::STOP);
     }
-    
 }

@@ -8,14 +8,14 @@ uint16_t sensorValues[SensorCount];
 
 */
 
-#define button 12
+#define button 4
 #define led_on 13
 
-#define AQ1 5
-#define AQ2 4
-#define BQ1 7
-#define BQ2 8
-#define STBY 6
+#define AQ1 10
+#define AQ2 9
+#define BQ1 6
+#define BQ2 7
+#define STBY 8
 
 #define LM 9
 #define RM 3
@@ -107,6 +107,8 @@ void MotorControl(float delta, int base) {
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
+  Serial.println(2232);
+
   pinMode(button, INPUT_PULLUP);
 
   pinMode(AQ1, OUTPUT);
@@ -134,6 +136,8 @@ void setup() {
 }
 
 void loop() {
+
+  Serial.println(digitalRead(button));
 
   digitalWrite(led_on, HIGH);
   uint16_t position = qtr.readLineBlack(sensorValues);
@@ -169,7 +173,7 @@ void loop() {
     D = 0;
     lastError = 0;    
   }
-   //delay(100);
+   delay(100);
 
-  // Serial.println(position);
+  
 }

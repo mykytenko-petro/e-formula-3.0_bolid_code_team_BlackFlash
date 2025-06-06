@@ -1,35 +1,41 @@
 #include "../includes/motor_control.h"
 
+bool is_running = true;
+
 // function which simplify motors control
 void motor_control(int velocity, Direction direction) {
     int pwm = abs(velocity);
     if (pwm > 255) pwm = 255;
 
-    int pin1, pin2, motorPWM;
-
+    // LEFT motor (AQ1/AQ2)
     if (direction == Direction::LEFT) {
-        pin1 = AQ1;
-        pin2 = AQ2;
-        motorPWM = LM;
-    } else {
-        pin1 = BQ1;
-        pin2 = BQ2;
-        motorPWM = RM;
+        if (velocity >= 0) {
+            analogWrite(AQ1, pwm);
+            analogWrite(AQ2, 0);
+        } else {
+            analogWrite(AQ1, 0);
+            analogWrite(AQ2, pwm);
+        }
     }
 
-    // Set motor direction
-    if (velocity >= 0) {
-        digitalWrite(pin1, HIGH);
-        digitalWrite(pin2, LOW);
-    } else {
-        digitalWrite(pin1, LOW);
-        digitalWrite(pin2, HIGH);
+    // RIGHT motor (BQ1/BQ2)
+    else if (direction == Direction::RIGHT) {
+        if (velocity >= 0) {
+            analogWrite(BQ1, pwm);
+            analogWrite(BQ2, 0);
+        } else {
+            analogWrite(BQ1, 0);
+            analogWrite(BQ2, pwm);
+        }
     }
-
-    analogWrite(motorPWM, pwm);
 }
 
+// put Direction::STOP
 void motor_control(enum Direction direction) {
-    analogWrite(LM, 0);
-    analogWrite(RM, 0);
+    if (direction == Direction::STOP) {
+        analogWrite(AQ1, 0);
+        analogWrite(BQ1, 0);
+        analogWrite(AQ2, 0);
+        analogWrite(BQ2, 0);
+    }
 }

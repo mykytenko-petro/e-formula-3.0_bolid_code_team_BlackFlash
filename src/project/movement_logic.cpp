@@ -8,6 +8,7 @@ State change_state(State current_state) {
             motor_control(Direction::STOP);
             switch (current_state) {
                 case State::WAIT:
+                    calibration_count = 0;
                     return State::CALIBRATION;
                 case State::CALIBRATION: 
                     return State::START;
@@ -21,22 +22,42 @@ State change_state(State current_state) {
 
 void movement_logic() {
     uint16_t position = qtr.readLineBlack(sensorValues);
-    
 
     // emergency_break(position);
 
     state = change_state(state);
+
     Serial.println(static_cast<int>(state));
 
-    switch (state) {
-        case State::WAIT: 
-            LED_signal(300);
-            break;
-        case State::CALIBRATION:
-            calibration();
-            break;
-        case State::START:
-            Serial.println(static_cast<int>(position));
-            break;
+    if (test) {
+        switch (state) {
+            case State::WAIT: 
+                LED_signal(300);
+                break;
+            case State::CALIBRATION:
+                LED_signal(150);
+                motor_control(basespeed, Direction::LEFT);
+                break;
+            case State::START:
+                LED_signal(50);
+                motor_control(basespeed, Direction::RIGHT);
+                break;
+        }
+    } else {
+        switch (state) {
+            case State::WAIT: 
+                // LED_signal(300);
+                break;
+            case State::CALIBRATION:
+                calibration();
+                break;
+            case State::START:
+                Serial.println(static_cast<int>(position));
+
+                int delta = PID_calculation(position);
+                movement_handler(delta, basespeed);
+
+                break;
+        }
     }
 }

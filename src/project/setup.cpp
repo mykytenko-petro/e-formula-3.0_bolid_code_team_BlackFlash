@@ -4,8 +4,10 @@ adding important variables and setup arduino pins
 */
 #include "../includes/setup.h"
 
+bool test = false;
+
 //speed
-int basespeed = 5;
+int basespeed = 150;
 
 //QTR sensors
 QTRSensors qtr;
@@ -29,21 +31,13 @@ void setup() {
     pinMode(STBY, OUTPUT);
 
     //setup motors
-    
     digitalWrite(STBY, HIGH);
-
-    digitalWrite(AQ1, HIGH);
-    digitalWrite(AQ2, LOW);
-    
-    digitalWrite(BQ1, HIGH);
-    digitalWrite(BQ2, LOW);
 
     //setup sensors
     qtr.setTypeAnalog();
     qtr.setSensorPins((const uint8_t[]){ A0, A1, A2, A3, A4, A5, A6, A7 }, SensorCount);
 
     //setup led
-    delay(500);
     pinMode(led_on, OUTPUT);
 
     delay(500);

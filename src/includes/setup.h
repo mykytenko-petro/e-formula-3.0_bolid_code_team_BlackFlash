@@ -5,21 +5,17 @@
 
 // Pin definitions
 
-// button pin
-#define button 12
-
-// LED pin
+#define button 4
 #define led_on 13
 
-#define AQ1 5
-#define AQ2 4
-#define BQ1 7
-#define BQ2 8
-#define STBY 6
+#define AQ1 10
+#define AQ2 9
+#define BQ2 7
+#define BQ1 6
 
-// Motor pins
-#define LM 3
-#define RM 9
+#define STBY 8
+
+extern bool test;
 
 enum class State {
     WAIT,
