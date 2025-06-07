@@ -4,3 +4,4 @@
 #include "./calibration.h"
 #include "./movement_handler.h"
 #include "./emergency_break.h"
+#include "./lap_counter.h"

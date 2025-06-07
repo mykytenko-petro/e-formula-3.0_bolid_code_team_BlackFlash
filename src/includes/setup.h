@@ -5,13 +5,13 @@
 
 // Pin definitions
 
-#define button 4
+#define button 3
 #define led_on 13
 
-#define AQ1 10
-#define AQ2 9
-#define BQ2 7
-#define BQ1 6
+#define AQ1 5
+#define AQ2 6
+#define BQ1 9
+#define BQ2 10
 
 #define STBY 8
 

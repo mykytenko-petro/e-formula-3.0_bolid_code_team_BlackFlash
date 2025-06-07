@@ -4,17 +4,18 @@ adding important variables and setup arduino pins
 */
 #include "../includes/setup.h"
 
-bool test = false;
+bool test = true;
 
 //speed
-int basespeed = 150;
+int basespeed = 255;
 
 //QTR sensors
 QTRSensors qtr;
 const uint8_t SensorCount = 8;
+uint8_t sensorPins[SensorCount];
 uint16_t sensorValues[SensorCount];
 
-State state;
+State state = State::WAIT;
 
 void setup() {
     //conection between arduino and PC

@@ -3,7 +3,7 @@
 // TODO: make automatic calibration
 int step = -1;
 int rotation = 0;
-int rotation_speed = 150;
+int rotation_speed = 255;
 int calibration_count = 0;
 Direction side = Direction::LEFT;
 
@@ -14,11 +14,9 @@ void calibration() {
         rotation += step;
 
         if (rotation < -3) {
-            motor_control(Direction::STOP);
             side = Direction::RIGHT;
             step = 1;
         } else if (rotation > 3) {
-            motor_control(Direction::STOP);
             side = Direction::LEFT;
             step = -1;
         }
@@ -27,7 +25,7 @@ void calibration() {
            calibration_count += 1;
         }
 
-        Serial.println(rotation);
+        // Serial.println(rotation);
 
         if (side == Direction::LEFT) {
             motor_control(rotation_speed, Direction::RIGHT);

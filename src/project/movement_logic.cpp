@@ -2,6 +2,7 @@
 
 // button which change state
 State change_state(State current_state) {
+    Serial.println(digitalRead(button));
     if (digitalRead(button) == LOW) {  
         delay(200);
         if (digitalRead(button) == HIGH) {
@@ -27,26 +28,27 @@ void movement_logic() {
 
     state = change_state(state);
 
-    Serial.println(static_cast<int>(state));
+    // Serial.println(static_cast<int>(state));
 
     if (test) {
         switch (state) {
             case State::WAIT: 
-                LED_signal(300);
+
                 break;
             case State::CALIBRATION:
-                LED_signal(150);
-                motor_control(basespeed, Direction::LEFT);
+                qtr.calibrate();
+
                 break;
             case State::START:
-                LED_signal(50);
-                motor_control(basespeed, Direction::RIGHT);
+                Serial.println(static_cast<int>(position));
+
+                int delta = PID_calculation(position);
+                movement_handler(delta, basespeed);
                 break;
         }
     } else {
         switch (state) {
             case State::WAIT: 
-                // LED_signal(300);
                 break;
             case State::CALIBRATION:
                 calibration();
